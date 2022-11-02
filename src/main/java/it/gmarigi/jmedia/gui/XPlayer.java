@@ -16,9 +16,7 @@ import javax.swing.JFileChooser;
 import java.awt.Component;
 
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Vector;
 
 import it.gmarigi.jmedia.xplayer.*;
 import it.gmarigi.jmedia.entity.*;
@@ -27,12 +25,8 @@ import it.gmarigi.jmedia.utility.UtilityConversioni;
 import it.gmarigi.jmedia.utility.XmlFilter;
 import it.gmarigi.jmedia.utility.DirectoryFilter;
 import it.gmarigi.jmedia.utility.Mp3FileIcon;
-import it.gmarigi.jmedia.handler.PlaylistHandler;
-import it.gmarigi.jmedia.handler.PlaylistAddHandler;
-import it.gmarigi.jmedia.storeservices.BusinessDelegateGetPlaylist;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -67,7 +61,7 @@ import javax.swing.JRadioButtonMenuItem;
 
 
 //L&F
-import com.digitprop.tonic.*;
+
 
 /**
  * @author HiFly
@@ -952,10 +946,7 @@ public class XPlayer extends JFrame implements ActionListener {
 									id3.setDurata(jLabel3.getText());
 								}
 								
-								//Thread che inserisce una nuova traccia nella playlist.
-								PlaylistAddHandler plist = new PlaylistAddHandler(nome_playlist,file_corrente,id3,jTable,jPanel11);
-								plist.start();
-								
+
 								
 							}
 							catch(Exception ex) {
@@ -1083,9 +1074,7 @@ public class XPlayer extends JFrame implements ActionListener {
 					nome_playlist = JOptionPane.showInputDialog(XPlayer.this,"Nome della playlist","Creazione playlist",JOptionPane.PLAIN_MESSAGE);
 					if(nome_playlist!=null) {
 						try {
-							PlaylistHandler handler = new PlaylistHandler(nome_playlist);
-							handler.start();
-					
+
 							jLabel19.setText(nome_playlist);
 							
 						}
@@ -1139,22 +1128,6 @@ public class XPlayer extends JFrame implements ActionListener {
 					
 					//Impostare il table
 					try {
-						
-						Vector lista = BusinessDelegateGetPlaylist.recuperaPlaylist(nome_playlist);
-						
-						//Salvataggio dell'array in un hashtable
-						Enumeration en = lista.elements();
-						while(en.hasMoreElements()) {
-							ID3TracciaVao vao = (ID3TracciaVao)en.nextElement();
-							String indice = vao.getIndice();
-							valoriInRow.put(indice,vao);
-						}
-
-						modello = new ID3TableModel(lista.size(),4,lista);
-						jTable = new JTable(modello);
-						
-						
-						
 						
 						//Aggiunta di un listener di doppio click.
 						jTable.addMouseListener(new MouseInputAdapter() {

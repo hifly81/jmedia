@@ -8,7 +8,6 @@ package it.gmarigi.jmedia.xplayer;
 
 import it.gmarigi.jmedia.player.PlayerX;
 import it.gmarigi.jmedia.utility.UtilityConversioni;
-import it.gmarigi.jmedia.utility.Mp3Tags;
 import it.gmarigi.jmedia.entity.MediaInfoHash; 
 import it.gmarigi.jmedia.adapter.MediaControllerAdapter;
 
@@ -172,24 +171,19 @@ public class Mp3PlayerX extends PlayerX {
 		
 		//Creazione di una mappa con i parametri del media.
 		MediaInfoHash temp = new MediaInfoHash();
-		Mp3Tags mtags = new Mp3Tags(path.getFile());
+
 		
 		String durata = UtilityConversioni.secondiToMinuti(p.getDuration().getSeconds());
 		temp.put(MediaInfoHash.DURATA,durata);
 		temp.put(MediaInfoHash.RATE,new Float(p.getRate()).toString());
 		temp.put(MediaInfoHash.LATENZA,latenzaApertura);
-		temp.put(MediaInfoHash.ALBUM,mtags.getAlbum());
-		temp.put(MediaInfoHash.BITRATE,mtags.getBitRate());
-		temp.put(MediaInfoHash.AUTORE,mtags.getArtist());
+
 		
 		String titolo;
-		if(mtags.getTitle()!=null && !mtags.getTitle().equals("")) {
-			titolo = mtags.getTitle();
-		}
-		else {
-			File ftemp = new File(path.getFile());
-			titolo = ftemp.getName()+" (no id3 title tag)";
-		}
+
+		File ftemp = new File(path.getFile());
+		titolo = ftemp.getName()+" (no id3 title tag)";
+
 		temp.put(MediaInfoHash.TITOLO,titolo);
 	
 		return temp;

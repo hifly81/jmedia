@@ -1,0 +1,21 @@
+*.class
+*.iml
+*.idea
+
+# Package Files #
+#*.jar
+*.war
+*.ear
+
+#target
+target
+
+noCommit
+
+#resources for demo
+src/test/java/org/openstreetmap/
+src/main/resources/hgt/
+
+.classpath
+.project
+.settings/
